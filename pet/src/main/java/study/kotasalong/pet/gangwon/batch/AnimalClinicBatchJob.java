@@ -70,7 +70,7 @@ public class AnimalClinicBatchJob extends QuartzJobBean {
 	private IResAnimalClinicService resAnimalClinicService;
 	
 	public void animalClinicBatchStart() throws Exception {
-		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		long start = System.currentTimeMillis() ; 
 		logger.info("animalClinicBatchStart: "+ dayTime.format(new Date(start)));
 		logger.info("animalClinicBatchStart request: "+ dayTime.format(new Date(System.currentTimeMillis())));

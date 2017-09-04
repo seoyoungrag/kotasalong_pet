@@ -20,6 +20,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
@@ -38,6 +39,8 @@ import study.kotasalong.pet.gangwon.batch.common.AutowiringSpringBeanJobFactory;
 @Configuration
 @ComponentScan({ "study.kotasalong.pet.gangwon" })
 public class QuartzConfiguration {
+    @Autowired
+    private Environment environment;
 	@Autowired
 	private ApplicationContext applicationContext;
 	@Bean
@@ -54,7 +57,7 @@ public class QuartzConfiguration {
 		stFactory.setJobDetail((JobDetail) AnimalPharmacyBatchJobMethodJobDetail().getObject());
 		stFactory.setStartDelay(3000);
 		stFactory.setRepeatInterval(43200000);
-		stFactory.setRepeatCount(3);
+		stFactory.setRepeatCount(1);
 		return stFactory;
 	}
 
@@ -72,7 +75,7 @@ public class QuartzConfiguration {
 		stFactory.setJobDetail((JobDetail) AnimalClinicBatchJobMethodJobDetail().getObject());
 		stFactory.setStartDelay(3000);
 		stFactory.setRepeatInterval(43200000);
-		stFactory.setRepeatCount(3);
+		stFactory.setRepeatCount(1);
 		return stFactory;
 	}
 	/*
