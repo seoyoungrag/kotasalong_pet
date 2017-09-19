@@ -1,15 +1,15 @@
 /**
- * 0. Project  : °­¿øµµ ¾Û Ã¢¾÷ ÇÁ·ÎÁ§Æ®
+ * 0. Project  : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
  *
  * 1. FileName : RestController.java
  * 2. Package : study.kotasalong.pet.gangwon.rest.controller
  * 3. Comment : 
- * 4. ÀÛ¼ºÀÚ  : yrseo
- * 5. ÀÛ¼ºÀÏ  : 2017. 8. 27. ¿ÀÈÄ 11:18:37
- * 6. º¯°æÀÌ·Â : 
- *                    ÀÌ¸§     : ÀÏÀÚ          : ±Ù°ÅÀÚ·á   : º¯°æ³»¿ë
+ * 4. ï¿½Û¼ï¿½ï¿½ï¿½  : yrseo
+ * 5. ï¿½Û¼ï¿½ï¿½ï¿½  : 2017. 8. 27. ï¿½ï¿½ï¿½ï¿½ 11:18:37
+ * 6. ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ : 
+ *                    ï¿½Ì¸ï¿½     : ï¿½ï¿½ï¿½ï¿½          : ï¿½Ù°ï¿½ï¿½Ú·ï¿½   : ï¿½ï¿½ï¿½æ³»ï¿½ï¿½
  *                   ------------------------------------------------------
- *                    yrseo : 2017. 8. 27. :            : ½Å±Ô °³¹ß.
+ *                    yrseo : 2017. 8. 27. :            : ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½.
  */
 package study.kotasalong.pet.gangwon.rest.controller;
 
@@ -24,17 +24,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import study.kotasalong.pet.gangwon.batch.service.IResAnimalClinicService;
 import study.kotasalong.pet.gangwon.batch.service.IResAnimalPharmacyService;
+import study.kotasalong.pet.gangwon.batch.service.IResHospDetailService;
+import study.kotasalong.pet.gangwon.batch.service.IResHospInfoService;
+import study.kotasalong.pet.gangwon.batch.service.IResKTAddressClinicService;
+import study.kotasalong.pet.gangwon.batch.service.IResKTAddressPharmService;
+import study.kotasalong.pet.gangwon.batch.service.IResPharmDetailService;
+import study.kotasalong.pet.gangwon.batch.service.IResPharmInfoService;
 import study.kotasalong.pet.gangwon.batch.vo.ResAnimalClinicVO;
 import study.kotasalong.pet.gangwon.batch.vo.ResAnimalPharmacyVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResHospDetailVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResHospInfoVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResKTAddressClinicVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResKTAddressPharmVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResPharmDetailVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResPharmInfoVO;
 import study.kotasalong.pet.gangwon.rest.RestResponseVO;
 
 /** 
 * @FileName      : RestController.java 
 * @Project     : batch 
 * @Date        : 2017. 8. 27. 
-* @ÀÛ¼ºÀÚ          : yrseo 
-* @º¯°æÀÌ·Â     : 
-* @ÇÁ·Î±×·¥ ¼³¸í     : 
+* @ï¿½Û¼ï¿½ï¿½ï¿½          : yrseo 
+* @ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½     : 
+* @ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½     : 
 */
 
 @RestController
@@ -44,13 +56,53 @@ public class SimpleRestController {
 	private IResAnimalClinicService resAnimalClinicService;
 	@Resource(name="resAnimalPharmacyService") 
 	private IResAnimalPharmacyService resAnimalPharmacyService;
+	@Resource(name="resHospInfoService")  
+	private IResHospInfoService resHospInfoService;
+	@Resource(name="resHospDetailService")  
+	private IResHospDetailService resHospDetailService;
+	@Resource(name="resKTAddressClinicService")  
+	private IResKTAddressClinicService resKTAddressClinicService;
+	@Resource(name="resPharmInfoService")
+	private IResPharmInfoService resPharmInfoService;
+	@Resource(name="resPharmDetailService")
+	private IResPharmDetailService resPharmDetailService;
+	@Resource(name="resKTAddressPharmService")
+	private IResKTAddressPharmService resKTAddressPharmService;
 
 	@RequestMapping(value = "pet/gangwon/animalClinic", method = RequestMethod.GET)
 	public RestResponseVO getAnimalClinicListAll() {
 		RestResponseVO res = new RestResponseVO();
 		List<ResAnimalClinicVO> resAnimalClinicVOList = new ArrayList<ResAnimalClinicVO>();
+		List<ResHospInfoVO> resHospInfoVOList = new ArrayList<ResHospInfoVO>();
+		List<ResHospDetailVO> resHospDetailVOList = new ArrayList<ResHospDetailVO>();
+		List<ResKTAddressClinicVO> resKTAddressClinicVOList = new ArrayList<ResKTAddressClinicVO>();
 		try {
 			resAnimalClinicVOList = resAnimalClinicService.findAllResAnimalClinicVOs();
+			resHospInfoVOList = resHospInfoService.findAll();
+			resHospDetailVOList = resHospDetailService.findAll();
+			resKTAddressClinicVOList = resKTAddressClinicService.findAll();
+			for(ResAnimalClinicVO vo : resAnimalClinicVOList){
+				for(ResHospInfoVO info : resHospInfoVOList){
+					if(vo.getNo()==info.getNo()){
+						vo.setHospInfo(info);
+						break;
+					}
+				}
+				for(ResHospDetailVO detail : resHospDetailVOList){
+					if(vo.getNo()==detail.getNo()){
+						vo.setHospDetail(detail);
+						break;
+					}
+					
+				}
+				for(ResKTAddressClinicVO kt : resKTAddressClinicVOList){
+					if(vo.getNo()==kt.getNo()){
+						vo.setKtInfo(kt);
+						break;
+					}
+					
+				}
+			}
 		} catch (Exception e) {
 			res = new RestResponseVO(RestResponseVO.R_CODE_FAIL,RestResponseVO.R_MSG_FAIL,null);
 			e.printStackTrace();
@@ -63,8 +115,36 @@ public class SimpleRestController {
 	public RestResponseVO getAnimalPharmacyListAll() {
 		RestResponseVO res = new RestResponseVO();
 		List<ResAnimalPharmacyVO> resAnimalClinicVOList = new ArrayList<ResAnimalPharmacyVO>();
+		List<ResPharmInfoVO> resPharmInfoVOList = new ArrayList<ResPharmInfoVO>();
+		List<ResPharmDetailVO> resPharmDetailVOList = new ArrayList<ResPharmDetailVO>();
+		List<ResKTAddressPharmVO> resKTAddressPharmVOList = new ArrayList<ResKTAddressPharmVO>();
 		try {
 			resAnimalClinicVOList = resAnimalPharmacyService.findAllResAnimalPharmacyVOs();
+			resPharmInfoVOList = resPharmInfoService.findAll();
+			resPharmDetailVOList = resPharmDetailService.findAll();
+			resKTAddressPharmVOList = resKTAddressPharmService.findAll();
+			for(ResAnimalPharmacyVO vo : resAnimalClinicVOList){
+				for(ResPharmInfoVO info : resPharmInfoVOList){
+					if(vo.getNo()==info.getNo()){
+						vo.setPharmInfo(info);
+						break;
+					}
+				}
+				for(ResPharmDetailVO detail : resPharmDetailVOList){
+					if(vo.getNo()==detail.getNo()){
+						vo.setPharmDetail(detail);
+						break;
+					}
+					
+				}
+				for(ResKTAddressPharmVO kt : resKTAddressPharmVOList){
+					if(vo.getNo()==kt.getNo()){
+						vo.setKtInfo(kt);
+						break;
+					}
+					
+				}
+			}
 		} catch (Exception e) {
 			res = new RestResponseVO(RestResponseVO.R_CODE_FAIL,RestResponseVO.R_MSG_FAIL,null);
 			e.printStackTrace();

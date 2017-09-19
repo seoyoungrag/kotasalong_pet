@@ -1,15 +1,15 @@
 /**
- * 0. Project  : °­¿øµµ ¾Û Ã¢¾÷ ÇÁ·ÎÁ§Æ®
+ * 0. Project  : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
  *
  * 1. FileName : ResAnimalPharmacyVO.java
  * 2. Package : study.kotasalong.pet.gangwon.batch.vo
  * 3. Comment : 
- * 4. ÀÛ¼ºÀÚ  : yrseo
- * 5. ÀÛ¼ºÀÏ  : 2017. 8. 27. ¿ÀÈÄ 3:55:10
- * 6. º¯°æÀÌ·Â : 
- *                    ÀÌ¸§     : ÀÏÀÚ          : ±Ù°ÅÀÚ·á   : º¯°æ³»¿ë
+ * 4. ï¿½Û¼ï¿½ï¿½ï¿½  : yrseo
+ * 5. ï¿½Û¼ï¿½ï¿½ï¿½  : 2017. 8. 27. ï¿½ï¿½ï¿½ï¿½ 3:55:10
+ * 6. ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ : 
+ *                    ï¿½Ì¸ï¿½     : ï¿½ï¿½ï¿½ï¿½          : ï¿½Ù°ï¿½ï¿½Ú·ï¿½   : ï¿½ï¿½ï¿½æ³»ï¿½ï¿½
  *                   ------------------------------------------------------
- *                    yrseo : 2017. 8. 27. :            : ½Å±Ô °³¹ß.
+ *                    yrseo : 2017. 8. 27. :            : ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½.
  */
 package study.kotasalong.pet.gangwon.batch.vo;
 
@@ -22,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -29,15 +30,14 @@ import com.google.gson.annotations.SerializedName;
 * @FileName      : ResAnimalPharmacyVO.java 
 * @Project     : batch 
 * @Date        : 2017. 8. 27. 
-* @ÀÛ¼ºÀÚ          : yrseo 
-* @º¯°æÀÌ·Â     : 
-* @ÇÁ·Î±×·¥ ¼³¸í     : 
+* @ï¿½Û¼ï¿½ï¿½ï¿½          : yrseo 
+* @ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½     : 
+* @ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½     : 
 */
 
 @Entity
 @Table(name="res_animal_pharmacy")
 public class ResAnimalPharmacyVO  implements Serializable {
-
 	/**
 	 * 
 	 */
@@ -124,6 +124,49 @@ public class ResAnimalPharmacyVO  implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
 	@Column(name="UPDATE_DT")
     private Date updateDt;
+    @Transient
+    private ResPharmInfoVO pharmInfo;
+    @Transient
+    private ResPharmDetailVO pharmDetail;
+    @Transient
+    private ResKTAddressPharmVO ktInfo;
+    
+	/**
+	 * @return the pharmInfo
+	 */
+	public ResPharmInfoVO getPharmInfo() {
+		return pharmInfo;
+	}
+	/**
+	 * @param pharmInfo the pharmInfo to set
+	 */
+	public void setPharmInfo(ResPharmInfoVO pharmInfo) {
+		this.pharmInfo = pharmInfo;
+	}
+	/**
+	 * @return the pharmDetail
+	 */
+	public ResPharmDetailVO getPharmDetail() {
+		return pharmDetail;
+	}
+	/**
+	 * @param pharmDetail the pharmDetail to set
+	 */
+	public void setPharmDetail(ResPharmDetailVO pharmDetail) {
+		this.pharmDetail = pharmDetail;
+	}
+	/**
+	 * @return the ktInfo
+	 */
+	public ResKTAddressPharmVO getKtInfo() {
+		return ktInfo;
+	}
+	/**
+	 * @param ktInfo the ktInfo to set
+	 */
+	public void setKtInfo(ResKTAddressPharmVO ktInfo) {
+		this.ktInfo = ktInfo;
+	}
 	/**
 	 * @return the no
 	 */

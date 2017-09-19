@@ -1,15 +1,15 @@
 /**
- * 0. Project  : °­¿øµµ ¾Û Ã¢¾÷ ÇÁ·ÎÁ§Æ®
+ * 0. Project  : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
  *
  * 1. FileName : ResAnimalClinic.java
  * 2. Package : study.kotasalong.pet.gangwon.batch.vo
  * 3. Comment : 
- * 4. ÀÛ¼ºÀÚ  : yrseo
- * 5. ÀÛ¼ºÀÏ  : 2017. 8. 27. ¿ÀÈÄ 9:09:06
- * 6. º¯°æÀÌ·Â : 
- *                    ÀÌ¸§     : ÀÏÀÚ          : ±Ù°ÅÀÚ·á   : º¯°æ³»¿ë
+ * 4. ï¿½Û¼ï¿½ï¿½ï¿½  : yrseo
+ * 5. ï¿½Û¼ï¿½ï¿½ï¿½  : 2017. 8. 27. ï¿½ï¿½ï¿½ï¿½ 9:09:06
+ * 6. ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ : 
+ *                    ï¿½Ì¸ï¿½     : ï¿½ï¿½ï¿½ï¿½          : ï¿½Ù°ï¿½ï¿½Ú·ï¿½   : ï¿½ï¿½ï¿½æ³»ï¿½ï¿½
  *                   ------------------------------------------------------
- *                    yrseo : 2017. 8. 27. :            : ½Å±Ô °³¹ß.
+ *                    yrseo : 2017. 8. 27. :            : ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½.
  */
 package study.kotasalong.pet.gangwon.batch.vo;
 
@@ -22,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -29,9 +30,9 @@ import com.google.gson.annotations.SerializedName;
 * @FileName      : ResAnimalClinic.java 
 * @Project     : batch 
 * @Date        : 2017. 8. 27. 
-* @ÀÛ¼ºÀÚ          : yrseo 
-* @º¯°æÀÌ·Â     : 
-* @ÇÁ·Î±×·¥ ¼³¸í     : 
+* @ï¿½Û¼ï¿½ï¿½ï¿½          : yrseo 
+* @ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½     : 
+* @ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½     : 
 */
 
 @Entity
@@ -105,6 +106,48 @@ public class ResAnimalClinicVO implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
 	@Column(name="UPDATE_DT")
     private Date updateDt;
+    @Transient
+    private ResHospInfoVO hospInfo;
+    @Transient
+    private ResHospDetailVO hospDetail;
+    @Transient
+    private ResKTAddressClinicVO ktInfo;
+	/**
+	 * @return the hospInfo
+	 */
+	public ResHospInfoVO getHospInfo() {
+		return hospInfo;
+	}
+	/**
+	 * @param hospInfo the hospInfo to set
+	 */
+	public void setHospInfo(ResHospInfoVO hospInfo) {
+		this.hospInfo = hospInfo;
+	}
+	/**
+	 * @return the hospDetail
+	 */
+	public ResHospDetailVO getHospDetail() {
+		return hospDetail;
+	}
+	/**
+	 * @param hospDetail the hospDetail to set
+	 */
+	public void setHospDetail(ResHospDetailVO hospDetail) {
+		this.hospDetail = hospDetail;
+	}
+	/**
+	 * @return the ktInfo
+	 */
+	public ResKTAddressClinicVO getKtInfo() {
+		return ktInfo;
+	}
+	/**
+	 * @param ktInfo the ktInfo to set
+	 */
+	public void setKtInfo(ResKTAddressClinicVO ktInfo) {
+		this.ktInfo = ktInfo;
+	}
 	/**
 	 * @return the no
 	 */

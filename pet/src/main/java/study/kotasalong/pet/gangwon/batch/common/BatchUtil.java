@@ -1,15 +1,15 @@
 /**
- * 0. Project  : °­¿øµµ ¾Û Ã¢¾÷ ÇÁ·ÎÁ§Æ®
+ * 0. Project  : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
  *
  * 1. FileName : Util.java
  * 2. Package : study.kotasalong.pet.gangwon.batch.common
  * 3. Comment : 
- * 4. ÀÛ¼ºÀÚ  : yrseo
- * 5. ÀÛ¼ºÀÏ  : 2017. 8. 27. ¿ÀÈÄ 9:21:32
- * 6. º¯°æÀÌ·Â : 
- *                    ÀÌ¸§     : ÀÏÀÚ          : ±Ù°ÅÀÚ·á   : º¯°æ³»¿ë
+ * 4. ï¿½Û¼ï¿½ï¿½ï¿½  : yrseo
+ * 5. ï¿½Û¼ï¿½ï¿½ï¿½  : 2017. 8. 27. ï¿½ï¿½ï¿½ï¿½ 9:21:32
+ * 6. ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ : 
+ *                    ï¿½Ì¸ï¿½     : ï¿½ï¿½ï¿½ï¿½          : ï¿½Ù°ï¿½ï¿½Ú·ï¿½   : ï¿½ï¿½ï¿½æ³»ï¿½ï¿½
  *                   ------------------------------------------------------
- *                    yrseo : 2017. 8. 27. :            : ½Å±Ô °³¹ß.
+ *                    yrseo : 2017. 8. 27. :            : ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½.
  */
 package study.kotasalong.pet.gangwon.batch.common;
 
@@ -20,17 +20,24 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.json.XML;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.reflect.TypeToken;
+
+import study.kotasalong.pet.gangwon.batch.vo.ResHospDetailVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResHospInfoVO;
 
 /** 
 * @FileName      : Util.java 
 * @Project     : batch 
 * @Date        : 2017. 8. 27. 
-* @ÀÛ¼ºÀÚ          : yrseo 
-* @º¯°æÀÌ·Â     : 
-* @ÇÁ·Î±×·¥ ¼³¸í     : 
+* @ï¿½Û¼ï¿½ï¿½ï¿½          : yrseo 
+* @ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½     : 
+* @ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½     : 
 */
 
 public class BatchUtil {
@@ -60,5 +67,69 @@ public class BatchUtil {
 	    ResponseVO<T> response = gson.fromJson(o.get(apiServiceName).toString(), collectionType);
 	    return response.getRow();
 	}
+
+	public static <T> List<ResultVOForAddr> jsonToVOForAddr(String jsonString, String apiServiceName, Type collectionType){
+		JsonParser parser = new JsonParser();
+		JsonObject o = parser.parse(jsonString).getAsJsonObject().getAsJsonObject("data").getAsJsonObject("search");
+	    Gson gson = new Gson();
+	    ResponseVOForAddr response = gson.fromJson(o.get("results").toString(), collectionType);
+	    if(response==null){
+	    	return null;
+	    }
+	    return response.getResult();
+	}
+
+	/** 
+	* @param <T>
+	 * @Method Name : jsonToVOForHosp 
+	* @ë³€ê²½ì´ë ¥      : 
+	* @Method ì„¤ëª…     : 
+	* @param hospAddresJson
+	* @return 
+	*/
+	public static Object jsonToVOForHosp(String jsonString) {
+		org.json.JSONObject xmlJSONObj = XML.toJSONObject(jsonString);
+		String xmlJSONObjString = xmlJSONObj.toString();
+		JsonParser parser = new JsonParser();
+		JsonObject o = parser.parse(xmlJSONObjString).getAsJsonObject().getAsJsonObject("response").getAsJsonObject("body");
+		if(o.get("totalCount").toString().equals("0")){
+			return null;
+		}else if(o.get("totalCount").toString().equals("1")){
+		    Gson gson = new Gson();
+		    ResHospInfoVO response = gson.fromJson(o.getAsJsonObject("items").getAsJsonObject("item").toString(), new TypeToken<ResHospInfoVO>(){}.getType());
+		    if(response==null){
+		    	return null;
+		    }
+		    return response;
+		}else{
+		    Gson gson = new Gson();
+		    ResultVOForHosp response = gson.fromJson(o.getAsJsonObject("items").toString(), new TypeToken<ResultVOForHosp>(){}.getType());
+		    if(response==null){
+		    	return null;
+		    }	
+		    return response;
+		}
+	}
+
+	/** 
+	* @Method Name : jsonToVOForHospDetail 
+	* @ë³€ê²½ì´ë ¥      : 
+	* @Method ì„¤ëª…     : 
+	* @param hospDetailJson
+	* @return 
+	*/
 	
+	
+	public static ResHospDetailVO jsonToVOForHospDetail(String hospDetailJson) {
+		org.json.JSONObject xmlJSONObj = XML.toJSONObject(hospDetailJson);
+		String xmlJSONObjString = xmlJSONObj.toString();
+		JsonParser parser = new JsonParser();
+		JsonObject o = parser.parse(xmlJSONObjString).getAsJsonObject().getAsJsonObject("response");
+	    Gson gson = new Gson();
+	    ResHospDetailVO response = null;
+		if(!(o.get("body") instanceof JsonPrimitive)){
+	    	response = gson.fromJson(o.getAsJsonObject("body").getAsJsonObject("item").toString(), new TypeToken<ResHospDetailVO>(){}.getType());
+		}
+	    return response;
+	}
 }

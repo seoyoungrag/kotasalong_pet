@@ -1,19 +1,20 @@
 /**
- * 0. Project  : ∞≠ø¯µµ æ€ √¢æ˜ «¡∑Œ¡ß∆Æ
+ * 0. Project  : ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩ √¢ÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ∆Æ
  *
  * 1. FileName : AnimalPharmacyBatchJob.java
  * 2. Package : study.kotasalong.pet.gangwon.batch
  * 3. Comment : 
- * 4. ¿€º∫¿⁄  : yrseo
- * 5. ¿€º∫¿œ  : 2017. 8. 27. ø¿»ƒ 4:42:11
- * 6. ∫Ø∞Ê¿Ã∑¬ : 
- *                    ¿Ã∏ß     : ¿œ¿⁄          : ±Ÿ∞≈¿⁄∑·   : ∫Ø∞Ê≥ªøÎ
+ * 4. ÔøΩ€ºÔøΩÔøΩÔøΩ  : yrseo
+ * 5. ÔøΩ€ºÔøΩÔøΩÔøΩ  : 2017. 8. 27. ÔøΩÔøΩÔøΩÔøΩ 4:42:11
+ * 6. ÔøΩÔøΩÔøΩÔøΩÔøΩÃ∑ÔøΩ : 
+ *                    ÔøΩÃ∏ÔøΩ     : ÔøΩÔøΩÔøΩÔøΩ          : ÔøΩŸ∞ÔøΩÔøΩ⁄∑ÔøΩ   : ÔøΩÔøΩÔøΩÊ≥ªÔøΩÔøΩ
  *                   ------------------------------------------------------
- *                    yrseo : 2017. 8. 27. :            : Ω≈±‘ ∞≥πﬂ.
+ *                    yrseo : 2017. 8. 27. :            : ÔøΩ≈±ÔøΩ ÔøΩÔøΩÔøΩÔøΩ.
  */
 package study.kotasalong.pet.gangwon.batch;
 
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,16 +36,27 @@ import com.google.gson.reflect.TypeToken;
 
 import study.kotasalong.pet.gangwon.batch.common.BatchUtil;
 import study.kotasalong.pet.gangwon.batch.common.ResponseVO;
+import study.kotasalong.pet.gangwon.batch.common.ResponseVOForAddr;
+import study.kotasalong.pet.gangwon.batch.common.ResultVOForAddr;
+import study.kotasalong.pet.gangwon.batch.common.ResultVOForHosp;
 import study.kotasalong.pet.gangwon.batch.service.IResAnimalPharmacyService;
+import study.kotasalong.pet.gangwon.batch.service.IResKTAddressPharmService;
+import study.kotasalong.pet.gangwon.batch.service.IResPharmDetailService;
+import study.kotasalong.pet.gangwon.batch.service.IResPharmInfoService;
 import study.kotasalong.pet.gangwon.batch.vo.ResAnimalPharmacyVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResHospDetailVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResHospInfoVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResKTAddressPharmVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResPharmDetailVO;
+import study.kotasalong.pet.gangwon.batch.vo.ResPharmInfoVO;
 
 /** 
 * @FileName      : AnimalPharmacyBatchJob.java 
 * @Project     : batch 
 * @Date        : 2017. 8. 27. 
-* @¿€º∫¿⁄          : yrseo 
-* @∫Ø∞Ê¿Ã∑¬     : 
-* @«¡∑Œ±◊∑• º≥∏Ì     : 
+* @ÔøΩ€ºÔøΩÔøΩÔøΩ          : yrseo 
+* @ÔøΩÔøΩÔøΩÔøΩÔøΩÃ∑ÔøΩ     : 
+* @ÔøΩÔøΩÔøΩŒ±◊∑ÔøΩ ÔøΩÔøΩÔøΩÔøΩ     : 
 */
 @PersistJobDataAfterExecution
 @DisallowConcurrentExecution
@@ -62,9 +74,25 @@ public class AnimalPharmacyBatchJob extends QuartzJobBean {
     String apiStartIdex;
     @Value("${api.endindex}")
     String apiEndIndex;
+    @Value("${api.address.uri}")
+    String apiAddressUri;
+    @Value("${api.servicename.address}")
+    String addrApiServiceName;
+    @Value("${api.servicename.pharmacyInfoService}")
+    String apiHospBasisListUri;
+    @Value("${api.servicename.getHospBasisList.ServiceKey}")
+    String apiHospBasisListKey;
+    @Value("${api.servicename.medicInsttDetailInfoService}")
+    String apiHospDetailUri;
     
-	@Resource(name="resAnimalPharmacyService") //spring,quartz∞£ lifecycle ¥Ÿ∏ß
+	@Resource(name="resAnimalPharmacyService") //spring,quartz lifecycle 
 	private IResAnimalPharmacyService resAnimalPharmacyService;
+	@Resource(name="resPharmInfoService")
+	private IResPharmInfoService resPharmInfoService;
+	@Resource(name="resPharmDetailService")
+	private IResPharmDetailService resPharmDetailService;
+	@Resource(name="resKTAddressPharmService")
+	private IResKTAddressPharmService resKTAddressPharmService;
 	
 	public void animalPharmacyBatchStart() throws Exception {		
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -79,12 +107,90 @@ public class AnimalPharmacyBatchJob extends QuartzJobBean {
 		long end = System.currentTimeMillis(); 
 		logger.info("animalPharmacyBatch request Proceed: "+ (end-start)/1000 +" seconds");
 		logger.info("animalPharmacyBatchProssingCnt: "+ list.size() +" objects");
+		int allResult = list.size();
+		int notFoundresult = 0;
 	    for(ResAnimalPharmacyVO vo : list){
+	    	ResPharmInfoVO resultPharmInfo = null;
+	    	String hospAddresFindUrl = MessageFormat.format(apiHospBasisListUri, apiHospBasisListKey, URLEncoder.encode(vo.getBizplcNm().replaceAll(" ", ""), "UTF-8"), vo.getLat(), vo.getLng());
+	    	String hospAddresJson = BatchUtil.readUrl(hospAddresFindUrl);
+	    	Object object = BatchUtil.jsonToVOForHosp(hospAddresJson);
+	    	if(object==null){
+	    		logger.debug(hospAddresFindUrl + " is null");
+	    	}else{
+		    	if(object instanceof ResHospInfoVO){
+		    		ResHospInfoVO hosp = (ResHospInfoVO) object;
+	    			if(hosp.getAddr().startsWith("Í∞ïÏõê") && hosp.getYadmNm().equals(vo.getBizplcNm().replaceAll(" ", ""))){
+	    				resultPharmInfo = new ResPharmInfoVO(hosp);
+	    			}
+	    			else if(hosp.getAddr().equals(vo.getLocplcLotnoAddr())){
+	    				resultPharmInfo = new ResPharmInfoVO(hosp);
+	    			}
+		    	}else if(object instanceof ResultVOForHosp){
+		    		List<ResHospInfoVO> hospList = ((ResultVOForHosp) object).getItem();
+		    		for(ResHospInfoVO hosp: hospList){
+		    			if(hosp.getAddr().startsWith("Í∞ïÏõê") && hosp.getYadmNm().equals(vo.getBizplcNm().replaceAll(" ", ""))){
+		    				resultPharmInfo = new ResPharmInfoVO(hosp);
+				    		break;
+		    			}
+		    			if(hosp.getAddr().equals(vo.getLocplcLotnoAddr())){
+		    				resultPharmInfo = new ResPharmInfoVO(hosp);
+				    		break;
+		    			}
+		    		}
+		    	}
+	    	}
+		    if(resultPharmInfo==null){
+		    	logger.debug(hospAddresFindUrl + ": correct result is empty");
+		    }else{
+		    	resultPharmInfo.setNo(vo.getNo());
+		    	resPharmInfoService.save(resultPharmInfo);
+		    	if(!resultPharmInfo.getYkiho().equals("")){
+    		    	String hospDetailFindUrl = MessageFormat.format(apiHospDetailUri, apiHospBasisListKey, resultPharmInfo.getYkiho());
+    		    	String hospDetailJson = BatchUtil.readUrl(hospDetailFindUrl);
+    		    	ResHospDetailVO detail = BatchUtil.jsonToVOForHospDetail(hospDetailJson);
+    		    	if(detail!=null){
+    		    		ResPharmDetailVO resultDetail = new ResPharmDetailVO(detail);
+    		    		resultDetail.setNo(vo.getNo());
+    		    		resPharmDetailService.save(resultDetail);
+    		    		logger.debug(hospAddresFindUrl);
+    		    		logger.debug(hospDetailFindUrl);
+    		    	}
+		    	}
+		    }
+		    if(resultPharmInfo==null){
+		    	ResKTAddressPharmVO resultKTInfo = null;
+				String addressFindUrl = MessageFormat.format(apiAddressUri, vo.getLat(), vo.getLng(), vo.getBizplcNm());
+			    String addressJson = BatchUtil.readUrl(addressFindUrl);
+			    Type addressCollectionType = new TypeToken<ResponseVOForAddr>(){}.getType();
+			    List<ResultVOForAddr> addrList = BatchUtil.jsonToVOForAddr(addressJson, addrApiServiceName, addressCollectionType);
+			    if(addrList==null){
+			    	logger.debug(addressFindUrl + " is null");
+			    }else{
+				    for(ResultVOForAddr addr : addrList){
+				    	if(addr.getFieldMap().getAddrNm().startsWith("Í∞ïÏõê") && addr.getFieldMap().getPubNm().equals(vo.getBizplcNm())){
+				    		resultKTInfo = new ResKTAddressPharmVO(addr.getFieldMap());
+				    		break;
+				    	}
+				    	if(addr.getFieldMap().getAddrNm().equals(vo.getLocplcLotnoAddr())){
+				    		resultKTInfo = new ResKTAddressPharmVO(addr.getFieldMap());
+				    		break;
+				    	}
+				    }
+			    }
+			    if(resultKTInfo==null){
+			    	logger.debug(addressFindUrl + ": correct result is empty");
+			    	notFoundresult++;
+			    }else{
+			    	resultKTInfo.setNo(vo.getNo());
+			    	resKTAddressPharmService.save(resultKTInfo);
+			    }
+		    }
 	    	resAnimalPharmacyService.saveResAnimalPharmacyVO(vo);
 	    }
 		end = System.currentTimeMillis(); 
 		logger.info("animalPharmacyBatchFinished: "+ dayTime.format(new Date(end)));
 		logger.info("animalPharmacyBatchProceed: "+ (end-start)/1000 +" seconds");
+		logger.info("animalPharmacyBatchNotFoundResult: "+ notFoundresult +" / "+allResult);
 	}
 
 	/* (non-Javadoc)
