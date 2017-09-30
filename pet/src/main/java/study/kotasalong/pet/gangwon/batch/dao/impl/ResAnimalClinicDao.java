@@ -1,22 +1,22 @@
 /**
- * 0. Project  : °­¿øµµ ¾Û Ã¢¾÷ ÇÁ·ÎÁ§Æ®
+ * 0. Project  : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
  *
  * 1. FileName : ResAnimalClinicDao.java
  * 2. Package : study.kotasalong.pet.gangwon.batch.dao.impl
  * 3. Comment : 
- * 4. ÀÛ¼ºÀÚ  : yrseo
- * 5. ÀÛ¼ºÀÏ  : 2017. 8. 27. ¿ÀÈÄ 4:05:27
- * 6. º¯°æÀÌ·Â : 
- *                    ÀÌ¸§     : ÀÏÀÚ          : ±Ù°ÅÀÚ·á   : º¯°æ³»¿ë
+ * 4. ï¿½Û¼ï¿½ï¿½ï¿½  : yrseo
+ * 5. ï¿½Û¼ï¿½ï¿½ï¿½  : 2017. 8. 27. ï¿½ï¿½ï¿½ï¿½ 4:05:27
+ * 6. ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ : 
+ *                    ï¿½Ì¸ï¿½     : ï¿½ï¿½ï¿½ï¿½          : ï¿½Ù°ï¿½ï¿½Ú·ï¿½   : ï¿½ï¿½ï¿½æ³»ï¿½ï¿½
  *                   ------------------------------------------------------
- *                    yrseo : 2017. 8. 27. :            : ½Å±Ô °³¹ß.
+ *                    yrseo : 2017. 8. 27. :            : ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½.
  */
 package study.kotasalong.pet.gangwon.batch.dao.impl;
 
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -28,9 +28,9 @@ import study.kotasalong.pet.gangwon.batch.vo.ResAnimalClinicVO;
 * @FileName      : ResAnimalPharmacyDao.java 
 * @Project     : batch 
 * @Date        : 2017. 8. 27. 
-* @ÀÛ¼ºÀÚ          : yrseo 
-* @º¯°æÀÌ·Â     : 
-* @ÇÁ·Î±×·¥ ¼³¸í     : 
+* @ï¿½Û¼ï¿½ï¿½ï¿½          : yrseo 
+* @ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½     : 
+* @ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½     : 
 */
 
 @Repository("resAnimalClinicDao")
@@ -40,8 +40,10 @@ public class ResAnimalClinicDao extends AbstractDao implements IResAnimalClinicD
 	 * @see study.kotasalong.pet.gangwon.batch.vo.dao.IResAnimalPharmacyDao#saveResAnimalClinicVO(study.kotasalong.pet.gangwon.batch.vo.ResAnimalClinicVO)
 	 */
 	public void saveResAnimalClinicVO(ResAnimalClinicVO resAnimalClinicVO) {
-        //persist(resAnimalClinicVO);
 		saveOrUpdate(resAnimalClinicVO);
+	}
+	public void insert(ResAnimalClinicVO resAnimalClinicVO){
+		merge(resAnimalClinicVO);
 	}
 
 	/* (non-Javadoc)
@@ -57,9 +59,9 @@ public class ResAnimalClinicDao extends AbstractDao implements IResAnimalClinicD
 	 * @see study.kotasalong.pet.gangwon.batch.vo.dao.IResAnimalPharmacyDao#deleteResAnimalClinicVOByNo(int)
 	 */
 	public void deleteResAnimalClinicVOByNo(int no) {
-        Query query = getSession().createSQLQuery("delete from ResAnimalClinicVO where no = :no");
-        query.setInteger("no", no);
-        query.executeUpdate();
+		ResAnimalClinicVO delVO = new ResAnimalClinicVO();
+		delVO.setNo(no);
+		delete(delVO);
 	}
 
 	/* (non-Javadoc)
@@ -76,6 +78,18 @@ public class ResAnimalClinicDao extends AbstractDao implements IResAnimalClinicD
 	 */
 	public void updateResAnimalClinicVO(ResAnimalClinicVO resAnimalClinicVO) {
         getSession().update(resAnimalClinicVO);
+	}
+
+	/* (non-Javadoc)
+	 * @see study.kotasalong.pet.gangwon.batch.dao.IResAnimalClinicDao#getMaxNo()
+	 */
+	@Override
+	public int getMaxNo() {
+		Criteria c = getSession().createCriteria(ResAnimalClinicVO.class);
+		c.addOrder(Order.desc("no"));
+		c.setMaxResults(1);
+		ResAnimalClinicVO vo = (ResAnimalClinicVO)c.uniqueResult();
+		return vo.getNo()+100001;
 	}
 
 }

@@ -128,7 +128,11 @@ public class BatchUtil {
 	    Gson gson = new Gson();
 	    ResHospDetailVO response = null;
 		if(!(o.get("body") instanceof JsonPrimitive)){
-	    	response = gson.fromJson(o.getAsJsonObject("body").getAsJsonObject("item").toString(), new TypeToken<ResHospDetailVO>(){}.getType());
+			try{
+				response = gson.fromJson(o.getAsJsonObject("body").getAsJsonObject("item").toString(), new TypeToken<ResHospDetailVO>(){}.getType());
+			}catch(Exception e){
+				
+			}
 		}
 	    return response;
 	}

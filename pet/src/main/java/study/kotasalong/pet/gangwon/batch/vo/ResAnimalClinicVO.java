@@ -112,6 +112,25 @@ public class ResAnimalClinicVO implements Serializable {
     private ResHospDetailVO hospDetail;
     @Transient
     private ResKTAddressClinicVO ktInfo;
+    
+	/**
+	 * 
+	 */
+	public ResAnimalClinicVO() {
+		super();
+	}
+	/**
+	 * @param vo
+	 */
+	public ResAnimalClinicVO(ResAnimalClinicEditedVO vo) {
+		super();
+		this.no = vo.no;
+		this.bizplcNm = vo.bizplcNm;
+		this.locplcLotnoAddr = vo.locplcLotnoAddr;
+		this.loplcRoadnmAddr = vo.locplcRoadnmAddr;
+		this.lat = vo.lat;
+		this.lng = vo.lng;
+	}
 	/**
 	 * @return the hospInfo
 	 */

@@ -1,15 +1,15 @@
 /**
- * 0. Project  : °­¿øµµ ¾Û Ã¢¾÷ ÇÁ·ÎÁ§Æ®
+ * 0. Project  : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
  *
  * 1. FileName : IResAnimalClinicDao.java
  * 2. Package : study.kotasalong.pet.gangwon.batch.dao
  * 3. Comment : 
- * 4. ÀÛ¼ºÀÚ  : yrseo
- * 5. ÀÛ¼ºÀÏ  : 2017. 8. 27. ¿ÀÈÄ 4:02:57
- * 6. º¯°æÀÌ·Â : 
- *                    ÀÌ¸§     : ÀÏÀÚ          : ±Ù°ÅÀÚ·á   : º¯°æ³»¿ë
+ * 4. ï¿½Û¼ï¿½ï¿½ï¿½  : yrseo
+ * 5. ï¿½Û¼ï¿½ï¿½ï¿½  : 2017. 8. 27. ï¿½ï¿½ï¿½ï¿½ 4:02:57
+ * 6. ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ : 
+ *                    ï¿½Ì¸ï¿½     : ï¿½ï¿½ï¿½ï¿½          : ï¿½Ù°ï¿½ï¿½Ú·ï¿½   : ï¿½ï¿½ï¿½æ³»ï¿½ï¿½
  *                   ------------------------------------------------------
- *                    yrseo : 2017. 8. 27. :            : ½Å±Ô °³¹ß.
+ *                    yrseo : 2017. 8. 27. :            : ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½.
  */
 package study.kotasalong.pet.gangwon.batch.dao;
 
@@ -21,9 +21,9 @@ import study.kotasalong.pet.gangwon.batch.vo.ResAnimalClinicVO;
 * @FileName      : IResAnimalPharmacyDao.java 
 * @Project     : batch 
 * @Date        : 2017. 8. 27. 
-* @ÀÛ¼ºÀÚ          : yrseo 
-* @º¯°æÀÌ·Â     : 
-* @ÇÁ·Î±×·¥ ¼³¸í     : 
+* @ï¿½Û¼ï¿½ï¿½ï¿½          : yrseo 
+* @ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½     : 
+* @ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ï¿½     : 
 */
 
 public interface IResAnimalClinicDao {
@@ -37,4 +37,24 @@ public interface IResAnimalClinicDao {
     ResAnimalClinicVO findByNo(int no);
      
     void updateResAnimalClinicVO(ResAnimalClinicVO resAnimalClinicVO);
+
+	/** 
+	* @Method Name : getMaxNo 
+	* @ë³€ê²½ì´ë ¥      : 
+	* @Method ì„¤ëª…     : 
+	* @return 
+	*/
+	
+	
+	int getMaxNo();
+
+	/** 
+	* @Method Name : insert 
+	* @ë³€ê²½ì´ë ¥      : 
+	* @Method ì„¤ëª…     : 
+	* @param resAnimalClinicVO 
+	*/
+	
+	
+	void insert(ResAnimalClinicVO resAnimalClinicVO);
 }

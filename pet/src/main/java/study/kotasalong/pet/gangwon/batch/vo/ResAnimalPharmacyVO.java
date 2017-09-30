@@ -132,6 +132,24 @@ public class ResAnimalPharmacyVO  implements Serializable {
     private ResKTAddressPharmVO ktInfo;
     
 	/**
+	 * 
+	 */
+	public ResAnimalPharmacyVO() {
+		super();
+	}
+	/**
+	 * @param vo
+	 */
+	public ResAnimalPharmacyVO(ResAnimalPharmacyEditedVO vo) {
+		super();
+		this.no = vo.no;
+		this.bizplcNm = vo.bizplcNm;
+		this.locplcLotnoAddr = vo.locplcLotnoAddr;
+		this.locplcRoadnmAddr = vo.locplcRoadnmAddr;
+		this.lat = vo.lat;
+		this.lng = vo.lng;
+	}
+	/**
 	 * @return the pharmInfo
 	 */
 	public ResPharmInfoVO getPharmInfo() {

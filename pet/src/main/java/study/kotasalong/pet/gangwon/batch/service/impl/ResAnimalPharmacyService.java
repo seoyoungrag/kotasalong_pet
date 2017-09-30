@@ -75,4 +75,12 @@ public class ResAnimalPharmacyService implements IResAnimalPharmacyService {
         resAnimalPharmacyDao.updateResAnimalPharmacyVO(resAnimalPharmacyVO);
 	}
 
+	/* (non-Javadoc)
+	 * @see study.kotasalong.pet.gangwon.batch.service.IResAnimalPharmacyService#getMaxNo()
+	 */
+	@Override
+	public int getMaxNo() {
+		return resAnimalPharmacyDao.getMaxNo() > 200000 ? resAnimalPharmacyDao.getMaxNo()-100000 : resAnimalPharmacyDao.getMaxNo() ;
+	}
+
 }

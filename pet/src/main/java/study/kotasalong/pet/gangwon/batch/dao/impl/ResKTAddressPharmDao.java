@@ -16,7 +16,6 @@ package study.kotasalong.pet.gangwon.batch.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -60,9 +59,9 @@ public class ResKTAddressPharmDao extends AbstractDao implements IResKTAddressPh
 	 */
 	@Override
 	public void deleteByNo(int no) {
-        Query query = getSession().createSQLQuery("delete from ResKTAddressPharmVO where no = :no");
-        query.setInteger("no", no);
-        query.executeUpdate();
+		ResKTAddressPharmVO delVO = new ResKTAddressPharmVO();
+		delVO.setNo(no);
+		delete(delVO);
 	}
 
 	/* (non-Javadoc)

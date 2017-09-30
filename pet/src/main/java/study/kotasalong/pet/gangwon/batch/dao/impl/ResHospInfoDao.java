@@ -16,7 +16,6 @@ package study.kotasalong.pet.gangwon.batch.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -59,9 +58,9 @@ public class ResHospInfoDao extends AbstractDao implements IResHospInfoDao {
 	 */
 	@Override
 	public void deleteByNo(int no) {
-        Query query = getSession().createSQLQuery("delete from ResHospInfoVO where no = :no");
-        query.setInteger("no", no);
-        query.executeUpdate();
+		ResHospInfoVO delVO = new ResHospInfoVO();
+		delVO.setNo(no);
+		delete(delVO);
 	}
 
 	/* (non-Javadoc)
