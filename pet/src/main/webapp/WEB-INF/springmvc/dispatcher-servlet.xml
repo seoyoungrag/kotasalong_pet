@@ -7,10 +7,18 @@
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
                 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
+	<mvc:resources mapping="/pet/ref/**" location="/ref/" />
+	<mvc:resources mapping="/kotasalong/ref/**" location="/ref/" />
 	<mvc:resources mapping="/ref/**" location="/ref/" />
+	<mvc:resources mapping="/pet/beach_ref/**" location="/beach_ref/" />
+	<mvc:resources mapping="/kotasalong/beach_ref/**" location="/beach_ref/" />
+	<mvc:resources mapping="/beach_ref/**" location="/beach_ref/" />
+	<mvc:resources mapping="/kotasalong/ol/**" location="/OpenLayers-2.13.1/" />
+	<mvc:resources mapping="/ol/**" location="/OpenLayers-2.13.1/" />
+	<mvc:resources mapping="/pet/ol/**" location="/OpenLayers-2.13.1/" />
 	
 	<!--Bean Definition-->
-	<context:component-scan base-package="study.kotasalong.pet.gangwon">
+	<context:component-scan base-package="study.kotasalong">
        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />

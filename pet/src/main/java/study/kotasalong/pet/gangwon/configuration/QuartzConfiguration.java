@@ -123,10 +123,27 @@ public class QuartzConfiguration {
 	}
 	*/
 	@Bean
+	public MethodInvokingJobDetailFactoryBean BeachJobMethodJobDetail() {
+		MethodInvokingJobDetailFactoryBean obj = new MethodInvokingJobDetailFactoryBean();
+		obj.setTargetBeanName("BeachJob");
+		obj.setTargetMethod("getBeachListStart");
+		return obj;
+	}
+	//Job  is scheduled for 3+1 times with the interval of 30 seconds
+	@Bean
+	public SimpleTriggerFactoryBean BeachJobTrigger(){
+		SimpleTriggerFactoryBean stFactory = new SimpleTriggerFactoryBean();
+		stFactory.setJobDetail((JobDetail) BeachJobMethodJobDetail().getObject());
+		stFactory.setStartDelay(3000);
+		stFactory.setRepeatInterval(43200000);
+		stFactory.setRepeatCount(1);
+		return stFactory;
+	}
+	@Bean
 	public SchedulerFactoryBean schedulerFactoryBean() {
 		SchedulerFactoryBean scheduler = new SchedulerFactoryBean();
 		//scheduler.setTriggers(new Trigger[]{AnimalPharmacyBatchJobCron().getObject(), AnimalPharmacyBatchJobTrigger().getObject()});
-		scheduler.setTriggers(new Trigger[]{AnimalPharmacyBatchJobTrigger().getObject(), AnimalClinicBatchJobTrigger().getObject()});
+		scheduler.setTriggers(new Trigger[]{AnimalPharmacyBatchJobTrigger().getObject(), AnimalClinicBatchJobTrigger().getObject(), BeachJobTrigger().getObject()});
 		//scheduler.setTriggers(new Trigger[]{AnimalClinicBatchJobCron().getObject(), AnimalPharmacyBatchJobCron().getObject()});
 		// custom job factory of spring with DI support for @Autowired!
 		AutowiringSpringBeanJobFactory jobFactory = new AutowiringSpringBeanJobFactory();

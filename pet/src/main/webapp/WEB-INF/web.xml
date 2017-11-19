@@ -29,7 +29,7 @@
 	</listener>
 	<servlet>
 		<servlet-name>action</servlet-name>
-		<servlet-class>study.kotasalong.pet.gangwon.rest.AppDispatcherServlet</servlet-class>
+		<servlet-class>study.kotasalong.rest.AppDispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/springmvc/dispatcher-servlet.xml</param-value>

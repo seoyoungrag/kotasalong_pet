@@ -165,4 +165,13 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/main");
 		return mav;
 	}
+	
+
+	@RequestMapping(value = "pet/gangwon/map.do")
+	public ModelAndView map(
+			@RequestParam(value = "type", required = false, defaultValue = "clinic") String type){
+		ModelAndView mav = new ModelAndView("map");
+		mav.addObject("type", type);
+		return mav;
+	}
 }

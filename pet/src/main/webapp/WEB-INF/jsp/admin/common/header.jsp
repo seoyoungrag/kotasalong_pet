@@ -8,8 +8,8 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/ref/jqgrid/js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/ref/jqgrid/js/i18n/grid.locale-kr.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/ref/jqgrid/js/jquery.jqGrid.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
+	<script type="text/javascript" src="${pageContext.request.contextPath}/ref/jqgrid/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ref/jqgrid/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ref/jqgrid/css/ui.jqgrid-bootstrap.css">
 	
     <script type="text/javascript">

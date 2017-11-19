@@ -1,0 +1,98 @@
+@charset "utf-8";
+/* common */
+body,p,h1,h2,h3,h4,h5,h6,menu,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button{margin:0;padding:0}
+html,body{overflow:hidden;height:100%;-ms-content-zooming:none;-ms-touch-action:none}
+body,input,textarea,select,button,table,pre{font-family:'돋움',Dotum,Helvetica,'Apple SD Gothic Neo',Sans-serif;font-size:12px;color:#666}
+body{min-width:320px;scrollbar-face-color:#fff;scrollbar-shadow-color:#ccc;scrollbar-highlight-color:#ccc;scrollbar-3dlight-color:#ccc;scrollbar-darkshadow-color:#fff;scrollbar-track-color:#eee;scrollbar-arrow-color:#909090}
+/* scroll bars */
+
+::-webkit-scrollbar-track-piece{background:#E5E5E5;-webkit-border-radius:11px}
+/* use subtle scroll bars in webkit*/
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#eee}
+::-webkit-scrollbar-thumb{background:#ccc}
+::-webkit-scrollbar-track-piece{background:#eee}
+img,fieldset{border:0}
+menu,ul,ol{list-style:none}
+em,address{font-style:normal}
+a,a:link{text-decoration:none}
+a:hover,a:active,a:focus{text-decoration:underline}
+textarea{overflow:auto}
+option,x:-moz-any-link{padding-right:6px}
+option,x:-moz-any-link,x:default{padding-right:0}
+input[type=text]::-ms-clear{display:none}
+input[type='file']::-webkit-file-upload-button{cursor:pointer}
+input[type='checkbox'],input[type='radio']{width:13px;height:13px;margin:-1px \0/IE9;padding:1px \0/IE9}
+legend, caption, .blind{overflow:hidden;width:0;height:0;white-space:nowrap;line-height:0;text-indent:-9999em}
+button,label{cursor:pointer}
+button::-moz-focus-inner{padding:0}
+hr{display:none}
+table{border-spacing:0;border-collapse:collapse}
+img,select,textarea,button{vertical-align:middle}
+input{vertical-align:middle}
+button{border:0 none;background-color:transparent;cursor:pointer}
+
+
+/* layout */
+.wrap_map{height:100%;position:relative}
+.top_map{width:100%;min-width:800px;height:56px;background:#f6f6f6;border-bottom:#dcdcdc 1px solid}
+.top_map .logo{position:absolute;top:10px;left:20px}
+.top_map .iconBox{position:absolute;top:4px;left:200px} 
+
+	.iconBox ul li{width:48px;height:48px;float:left;background:url(../images/btn_bg.png) no-repeat;margin-right:5px}
+	.iconBox ul li.on{width:48px;height:48px;float:left;background:url(../images/btn_bg_on.png) no-repeat;margin-right:5px}
+	.icon{display:inline-block; overflow:hidden; width:0; height:0; background:url(../images/icon_set.png) no-repeat; white-space:nowrap; line-height:999px; vertical-align:top;margin:9px}
+	.icon_on{display:inline-block; overflow:hidden; width:0; height:0; background:url(../images/icon_set_on.png) no-repeat; white-space:nowrap; line-height:999px; vertical-align:top;margin:9px}
+	/*/
+	.icon_on{display:inline-block; overflow:hidden; width:0; height:0; background:url(../images/icon_set_on.png) no-repeat; white-space:nowrap; line-height:999px; vertical-align:top;margin:9px}
+	.icon_off{display:inline-block; overflow:hidden; width:0; height:0; background:url(../images/icon_set.png) no-repeat; white-space:nowrap; line-height:999px; vertical-align:top;margin:9px}
+	//*/
+	.btn_icon01{width:32px; height:32px; background-position:0 0; }
+	.btn_icon02{width:32px; height:32px; background-position:-32px 0; }
+	.btn_icon03{width:32px; height:32px; background-position:-64px 0; }
+	.btn_icon04{width:32px; height:32px; background-position:-96px 0; }
+	.btn_icon05{width:32px; height:32px; background-position:-128px 0; }
+	.btn_icon06{width:32px; height:32px; background-position:-160px 0; }
+	.btn_icon07{width:32px; height:32px; background-position:-192px 0; }
+	.btn_icon08{width:32px; height:32px; background-position:-224px 0; }
+	.btn_icon09{width:32px; height:32px; background-position:-256px 0; }
+	.btn_icon10{width:32px; height:32px; background-position:-288px 0; }
+	.btn_icon11{width:31px; height:32px; background-position:-320px 0; }
+	.btn_icon12{width:32px; height:32px; background-position:-352px 0; }
+	.btn_icon13{width:32px; height:32px; background-position:-384px 0; }
+	.btn_icon14{width:32px; height:32px; background-position:-416px 0; }
+	
+.container_map{position:absolute;top:57px;right:0;bottom:0;left:0;z-index:20;}
+.content_map{margin-left:0;height:100%;background:#fff}
+.coordinate{position:absolute;bottom:0;left:0;z-index:100;background:#CCC;width:100%;height:15px;padding:3px}
+/* scale bar */
+.scale-line{position:absolute;bottom:30px;left:10px}
+.ol-scale-line{background:rgba(23,46,107,.4);border-radius:4px;bottom:8px;left:8px;padding:2px;position:absolute}
+.ol-scale-line-inner{border:1px solid #eee;border-top:none;color:#fff;font-size:12px;font-weight:bold;text-align:center;margin:1px;padding:0 2px}
+
+/* tool tip */
+.tool_tip{border:1px solid #6d9ec4;background:#f7fafe;line-height:16px;font-size:12px; padding:2px;}
+
+/* map control*/
+.tool_map{position:absolute;top:75px;right:4px;width:32px;opacity:1.0}
+.tool_map .mapcontrol{position:relative; height:188px; background:url(../images/nav_bg.png);}
+.tool_map .mapcontrol .btn_zoomin{position:absolute;top:1px;left:1px}
+.tool_map .mapcontrol .controller{position:absolute;top:42px;left:10px;width:12px;height:11px;cursor:pointer;opacity:1.0;z-index:1}
+.tool_map .mapcontrol .controllerbg{position:absolute;top:35px;left:14px;width:4px;height:120px;background:url(../images/controller_body.png)}
+.tool_map .mapcontrol .btn_zoomout{position:absolute;top:159px;left:1px}
+.tool_map .mapcontrol .zoombar_controller{width:12px;height:11px;background-image:url(../images/controller.png);cursor:pointer;opacity:1.0}
+.distance_map{position:relative;top:10px;right:0px}
+.distance_map ul li{display:block;padding:0}
+.distance_map ul li.on{z-index:2}
+.layer_overlap{position:absolute;top:28px;left:-15px;width:83px;height:38px;background:url(../images/bg_layer_overlap.png) no-repeat;color:#222;display:none}
+.layer_overlap p span{display:block;position:absolute;top:17px;width:100%;text-align:center}
+
+
+/* cross line */
+.width_line{top:50%;width:100%;height:1px;position:absolute;z-index:99;background:#f00;margin-top:0px}
+.height_line{left:50%;height:100%;width:1px;position:fixed;z-index:99;background:#f00}
+
+/* 스케일바 좌표 겹침 문제 해결*/
+.ol-scale-line{margin-bottom: 20px;}
+
+.custom-mouse-position{display: inline-block;}
